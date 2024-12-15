@@ -1,14 +1,20 @@
-const express = require('express')
+require("dotenv").config()
+const express = require("express")
+const bodyParser = require("body-parser")
+const weatherRoutes = require("./routes/weatherRoutes")
+
 const app = express()
+const PORT = process.env.PORT || 3000
 
-const ejs = require('ejs')
-const mongoose = require('mongoose')
-require('dotenv').config()
-const PORT = process.env.PORT
-const apiRouter = require('./route/api')
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static("public"))
+app.set("view engine", "ejs")
 
-app.use('/', apiRouter)
+// Routes
+app.use("/", weatherRoutes)
 
-app.listen(PORT, (req, res) => {
-  console.log(`listen on localhost:${PORT}`)
-})
+// Start Server
+app.listen(PORT, () =>
+  console.log(`Server running on http://localhost:${PORT}`)
+)

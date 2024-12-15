@@ -1,31 +1,26 @@
-const axios = require('axios')
+const axios = require("axios")
 
-const api = (req, res) => {
-  axios({
-    method: 'get',
-    url: 'https://api.openweathermap.org/data/2.5/weather?q=bahrain&units=imperial&appid=b9e1521ae54f5f4b7933d5d32322b586'
-  })
-    .then((resp) => {
-      res.render('../views/index.ejs', { data: resp.data.Search })
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+const getWeatherPage = (req, res) => {
+  res.render("index")
 }
 
-const showing = (req, res) => {
-  axios({
-    method: 'get',
-    url: 'https://api.openweathermap.org/data/2.5/weather?q=bahrain&units=imperial&appid=b9e1521ae54f5f4b7933d5d32322b586'
-  })
-    .then((resp) => {
-      res.render('../views/weather/show.ejs', { data: resp.data.Search })
+const getWeather = async (req, res) => {
+  const zipCode = req.body.zipCode
+  const apiKey = process.env.API_KEY
+  const url = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&units=imperial&appid=${apiKey}`
+
+  try {
+    const response = await axios.get(url)
+    const weatherData = response.data
+
+    res.render("weather/show", {
+      city: weatherData.name,
+      temperature: weatherData.main.temp,
+      description: weatherData.weather[0].description,
     })
-    .catch((err) => {
-      console.log(err)
-    })
+  } catch (error) {
+    res.send("Error retrieving weather data.")
+  }
 }
-module.exports = {
-  api,
-  showing
-}
+
+module.exports = { getWeatherPage, getWeather }

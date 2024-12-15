@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather Details</title>
+    <title>Weather Result</title>
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <h1>Detailed Weather Information for <%= data.name %></h1>
-    <p>Temperature: <%= data.main.temp %>°F</p>
-    <p>Condition: <%= data.weather.description %></p>
+    <h1>Weather in <%= city %></h1>
+    <p>Temperature: <%= temperature %> °F</p>
+    <p>Condition: <%= description %></p>
+    <a href="/">Back to Home</a>
   </body>
 </html>

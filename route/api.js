@@ -1,8 +1,11 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const apiController = require('../controllers/api')
+const {
+  getWeatherPage,
+  getWeather,
+} = require("../controllers/weatherController")
 
-router.get('/', apiController.api)
-router.get('/weather', apiController.showing)
+router.get("/", getWeatherPage)
+router.post("/weather", getWeather)
 
 module.exports = router
