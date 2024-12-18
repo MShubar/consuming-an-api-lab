@@ -1,7 +1,7 @@
-const axios = require("axios")
+const axios = require('axios')
 
 const getWeatherPage = (req, res) => {
-  res.render("index")
+  res.render('index')
 }
 
 const getWeather = async (req, res) => {
@@ -13,13 +13,13 @@ const getWeather = async (req, res) => {
     const response = await axios.get(url)
     const weatherData = response.data
 
-    res.render("weather/show", {
+    res.render('weather/show', {
       city: weatherData.name,
       temperature: weatherData.main.temp,
-      description: weatherData.weather[0].description,
+      description: weatherData.weather[0].description
     })
   } catch (error) {
-    res.send("Error retrieving weather data.")
+    res.send('Error retrieving weather data.')
   }
 }
 
